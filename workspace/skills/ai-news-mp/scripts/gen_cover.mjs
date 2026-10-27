@@ -67,6 +67,13 @@ mkdirSync(path.dirname(out), { recursive: true });
 const labels = (args.labels || "").split(/[|｜]/).map((s) => s.trim()).filter(Boolean).slice(0, 2);
 const body = JSON.stringify({ model: MODEL, prompt: buildPrompt(args.topic, args.style, labels), size: SIZE, response_format: "b64_json" });
 
+// 看门狗：网络层挂起时 AbortSignal 不一定生效（2026-10-27 实测挂死 1.5 小时），到点强制退出。
+const watchdog = setTimeout(() => {
+  console.error("文生图超时（180 秒未完成），强制退出");
+  process.exit(1);
+}, 180000);
+watchdog.unref();
+
 let j;
 try {
   const res = await fetch(API, {
