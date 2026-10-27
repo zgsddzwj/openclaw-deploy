@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+deploy.local.env
 
 # ===== 运行时产物（由技能脚本生成）=====
 digest.md

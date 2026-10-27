@@ -118,7 +118,7 @@ openclaw gateway restart && openclaw channels status
 
 ## 七、本地改代码怎么部署
 
-本地仓库是代码的唯一真源。改完代码在仓库根目录跑一条命令（默认直连 ubuntu@<服务器IP>:<SSH端口>，密钥 ~/.ssh/<SSH别名>；可用 `DEPLOY_SERVER` 等环境变量覆盖）：
+本地仓库是代码的唯一真源。改完代码在仓库根目录跑一条命令（连接参数读 `deploy.local.env`，首次使用先 `cp deploy.local.env.example deploy.local.env` 填好；也可用 `DEPLOY_SERVER` 等环境变量覆盖）：
 
 ```bash
 ./deploy.sh

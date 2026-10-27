@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
 # 部署脚本：把本地代码推到服务器，并同步进 OpenClaw 运行工作区。
 #
-# 用法：./deploy.sh   （默认直连 ubuntu@<服务器IP>:<SSH端口>，密钥 ~/.ssh/<SSH别名>）
-#       DEPLOY_SERVER 可覆盖：含 @ 按显式主机（配 DEPLOY_PORT/DEPLOY_KEY），
-#       不含 @ 则视为 ~/.ssh/config 里的别名（如 <SSH别名>）
+# 用法：./deploy.sh
+#   连接参数从仓库根目录的 deploy.local.env 读取（该文件已被 .gitignore 排除，不会提交）：
+#     DEPLOY_SERVER=ubuntu@your-server-ip   # 含 @ 按显式主机；不含 @ 视为 ~/.ssh/config 别名
+#     DEPLOY_PORT=22
+#     DEPLOY_KEY=$HOME/.ssh/your-key
+#   也可以用同名环境变量直接覆盖。首次使用：cp deploy.local.env.example deploy.local.env 后填写。
 
 set -euo pipefail
 cd "$(dirname "$0")"
 
-SERVER="${DEPLOY_SERVER:-ubuntu@<服务器IP>}"
+[ -f ./deploy.local.env ] && . ./deploy.local.env
+
+SERVER="${DEPLOY_SERVER:-<用户名>@<服务器IP>}"
 SSH_PORT="${DEPLOY_PORT:-<SSH端口>}"
-SSH_KEY="${DEPLOY_KEY:-$HOME/.ssh/<SSH别名>}"
+SSH_KEY="${DEPLOY_KEY:-$HOME/.ssh/<密钥文件>}"
 if [[ "$SERVER" == *"@"* ]]; then
   SSH_OPTS=(-o ConnectTimeout=15 -o BatchMode=yes -p "$SSH_PORT" -i "$SSH_KEY")
 else
