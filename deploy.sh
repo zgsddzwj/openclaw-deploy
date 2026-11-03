@@ -46,6 +46,7 @@ tar czf - \
   --exclude='./.git' \
   --exclude='./.env' \
   --exclude='./.env.swo' \
+  --exclude='./deploy.local.env' \
   --exclude='./deploy.sh' \
   --exclude='./article.html' \
   --exclude='./article.txt' \

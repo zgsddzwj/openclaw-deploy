@@ -163,5 +163,19 @@ sudo tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1
 sudo npm i -g openclaw@latest --registry=https://registry.npmmirror.com
 cp -r workspace ~/.openclaw/workspace
 
-# 3. 按第二节 onboard，第四、五节配置与验收
+# 3. 正文数据图依赖（gen_chart.py 用，可选）
+sudo apt-get install -y python3-matplotlib fonts-noto-cjk python3-fonttools
+mkdir -p ~/.local/share/fonts
+python3 - <<'PY'
+from fontTools.ttLib import TTCollection
+import os
+for src, s in [("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", "Regular"),
+               ("/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc", "Bold")]:
+    for f in TTCollection(src).fonts:
+        n = f["name"].getDebugName(4) or ""
+        if "SC" in n and "Mono" not in n:
+            f.save(os.path.expanduser("~/.local/share/fonts/NotoSansCJKsc-%s.ttf" % s)); break
+PY
+
+# 4. 按第二节 onboard，第四、五节配置与验收
 ```
