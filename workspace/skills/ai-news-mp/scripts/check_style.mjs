@@ -39,12 +39,22 @@ const checks = [
   ["模具词 ≤1", mojuCount, 1],
 ];
 
+// 字数硬线（不含空白）：1000~3000
+const wordCount = t.replace(/\s+/g, "").length;
+const wcOk = wordCount >= 1000 && wordCount <= 3000;
+
 let fail = 0;
-console.log(`风格检查（${paras.length} 段）：`);
+console.log(`风格检查（${paras.length} 段 / ${wordCount} 字）：`);
 for (const [name, val, max] of checks) {
   const ok = val <= max;
   if (!ok) fail++;
   console.log(`${ok ? "✅" : "⚠️"} ${name}：${val}（上限 ${max}）`);
+}
+if (!wcOk) {
+  fail++;
+  console.log(`⚠️ 字数 1000~3000：当前 ${wordCount} 字（${wordCount < 1000 ? "信息量不足，补充内容" : "太长了，压缩到 3000 以内"}）`);
+} else {
+  console.log(`✅ 字数 1000~3000：${wordCount}`);
 }
 if (fail) {
   console.log(`共 ${fail} 项超标，按 SKILL.md 第 4 步改掉再查。`);
