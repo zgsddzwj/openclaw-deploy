@@ -182,15 +182,17 @@ description: 每日 AI 资讯工作流：抓取 AI 圈新闻，挑出当天最�
        </section>
      </section>
      ```
-   - **数据高亮卡**（单个关键数字要砸进读者脑子时用，替代散落正文；数字必须真实、卡片每篇 ≤ 1 张）：
+   - **数据高亮卡**（单个关键数字砸进读者脑子时用；**只放短数值/短短语，≤12 字**——长句判断用强调卡片，
+     不要塞进高亮卡，否则手机端折行很难看；卡片每篇 ≤ 1 张，数字必须真实）：
      ```html
      <section style="padding:8px 6px 12px;">
-       <section style="background:linear-gradient(135deg,#FF6622,#E05516);border-radius:12px;padding:24px 20px;text-align:center;">
-         <p style="font-size:36px;font-weight:800;color:#fff;margin:0;line-height:1.2;">0.29 美元/次</p>
+       <section style="background:linear-gradient(135deg,#FF6622,#E05516);border-radius:12px;padding:20px;text-align:center;">
+         <p style="font-size:24px;font-weight:800;color:#fff;margin:0;line-height:1.3;">0.29 美元/次</p>
          <p style="font-size:14px;color:#ffffffcc;margin:8px 0 0;">数据说明：一句话讲清这个数字的含义</p>
        </section>
      </section>
      ```
+     （主数字 24px 足够突出；不要用 36px 及以上——手机端会压过正文。）
    - **对比双栏**（谁受益谁受伤 / 新旧对比 / 正反两面，每篇 ≤ 2 组）：
      ```html
      <section style="padding:8px 6px 12px;">
