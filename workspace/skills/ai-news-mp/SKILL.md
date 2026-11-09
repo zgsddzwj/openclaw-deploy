@@ -271,6 +271,11 @@ description: 每日 AI 资讯工作流：抓取 AI 圈新闻，挑出当天最�
 
    凭据在环境变量 `WECHAT_MP_APPID` / `WECHAT_MP_SECRET` / `ARK_API_KEY` 里（运行环境已配置），不要把凭据写进任何文件或输出。
 
+   - **发布成功后归档**（每期必做，供后续热度分析）：
+     `node scripts/archive_article.mjs --title "本期标题" --type <模型|产品|技术|应用|商业|政策> --slot <早报|晚报> --skeleton "<本期骨架>" --digest "本期摘要" --cover "<COVER_PATH>"`
+     脚本自动读取 `scripts/article.txt` / `article.html`，写入 `archive/` 并在 `archive/index.jsonl`
+     追加一条索引（含日期、题材、骨架、摘要、封面路径、阅读量占位）。
+
 8. **汇报（简短通知制）**：向触发渠道只发一条简短通知，包含：本期标题、一句最想让读者记住或争论的判断
    （不要复述新闻）、一句提醒：到公众号后台「草稿箱」检查排版后**当天尽快发表**——每天只有 1 次「群发」会
    推送给粉丝，第二篇只能「发布」（不推送、阅读量会接近 0），挑更值得的那篇群发；发表时勾选「内容由 AI 生成」声明。
